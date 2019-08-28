@@ -1,0 +1,27 @@
+{
+  "name": "minecraftresourcerandomizer",
+  "version": "0.1.0",
+  "description": "Creates a Minecraft resource pack with randomized textures and sounds",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sv443/Minecraft_Resource_Randomizer.git"
+  },
+  "keywords": [
+    "minecraft",
+    "randomizer",
+    "textures"
+  ],
+  "author": "Sv443 <sven.fehler@web.de> (https://sv443.net/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Sv443/Minecraft_Resource_Randomizer/issues"
+  },
+  "homepage": "https://github.com/Sv443/Minecraft_Resource_Randomizer#readme",
+  "dependencies": {
+    "svjsl": "^1.7.0"
+  }
+}
