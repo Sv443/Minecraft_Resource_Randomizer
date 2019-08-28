@@ -110,6 +110,8 @@ const listAllFiles = (dir = "../") => {
         doneObj.folders.splice(idx, 1);
     });
 
+    if(jsl.isEmpty(doneObj.rpBasePath)) throw new Error("Not a valid Minecraft resource pack");
+
     doneObj.files.forEach((file, i) => {
         doneObj.files[i].path = file.path.substring(doneObj.rpBasePath.length + 1);
     });

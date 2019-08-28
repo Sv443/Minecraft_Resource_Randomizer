@@ -5,6 +5,7 @@ const jsl = require("svjsl");
 const col = require("./consoleColors");
 const seededRNG = require("./seededRNG");
 
+console.log(`\n\n\n\n\n`);
 if(!debuggerActive) var pb = new jsl.ProgressBar(8, `Parsing all resource files...`);
 
 const init = () => {
@@ -13,8 +14,7 @@ const init = () => {
     let parseFilesHR_M = (process.hrtime(parseFilesHR)[1] / 1e6).toFixed(2);
 
 
-    // console.log(`\nBase path: "${allFiles.rpBasePath}"\nFound ${allFiles.files.length} resource files in ${allFiles.folders.length} folders`);
-    if(!debuggerActive) pb.next(`Done parsing resource files after ${parseFilesHR_M}ms`);
+    if(!debuggerActive) pb.next(`Done parsing ${col.yellow}${allFiles.files.length}${col.rst} resource files in ${col.yellow}${allFiles.folders.length}${col.rst} folders after ${col.yellow}${parseFilesHR_M}ms${col.rst}`);
 }
 
 init();
