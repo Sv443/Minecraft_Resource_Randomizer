@@ -64,11 +64,12 @@ const listAllFiles = (dir = "../") => {
             }
             else if(itemStats.isFile())
             {
+                let fileName = item.split(".").pop();
                 let ispl = itemPath.split(".");
                 let correctFileType = false;
                 let itemType = "";
 
-                if(ispl[ispl.length - 1] == "png")
+                if(ispl[ispl.length - 1] == "png" && fileName != "pack.png")
                 {
                     correctFileType = true;
                     itemType = "image";
@@ -84,7 +85,6 @@ const listAllFiles = (dir = "../") => {
                     if(settings.listAllFiles.verboseLogging) process.stdout.write(`${col.yellow}*${col.rst}${m % 5 == 0 ? " " : ""}`);
                     m++;
 
-                    let fileName = item.split(".").pop();
                     if(typeof fileName == "object" && !jsl.isEmpty(filename.length)) fileName = fileName.join(".");
                     doneObj.files.push({
                         "fileName": fileName,
