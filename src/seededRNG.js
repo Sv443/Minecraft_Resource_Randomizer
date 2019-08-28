@@ -33,7 +33,7 @@ const generateSeededNumbers = (count, seed) => { // thanks to olsn for this code
         min = min || 0;
     
         seed = (seed * 9301 + 49297) % 233280;
-        var rnd = seed / 233280;
+        let rnd = seed / 233280;
     
         return Math.floor(min + rnd * (max - min));
     }

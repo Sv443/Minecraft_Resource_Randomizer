@@ -118,8 +118,6 @@ const listAllFiles = (dir = "../") => {
         doneObj.folders[i] = folder.substring(doneObj.rpBasePath.length + 1);
     });
 
-    console.log(JSON.stringify(doneObj, null, 4));
-
     if(settings.listAllFiles.verboseLogging) console.log(`\n\n${col.green}[---- DONE WALKING ----]${col.rst}\n`);
     return doneObj;
 }
