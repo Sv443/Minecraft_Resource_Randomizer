@@ -31,7 +31,7 @@ const settings = {
             key: "6",
         },
         "1.14": {
-            url: "https://download1517.mediafire.com/906pzqy301fg/4to38xli3iizfv0/1.14+Template.zip",
+            url: "https://sv443.net/cdn/MRR/templates/1.14.zip",
             key: "7",
         },
     },
@@ -41,6 +41,9 @@ const settings = {
     seed: {
         digitCount: 10,
         numberCount: 50,
+    },
+    download: {
+        downloadFolder: "./.MRR",
     },
 }
 

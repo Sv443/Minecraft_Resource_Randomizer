@@ -4,17 +4,77 @@ const listAllFiles = require("./listAllFiles");
 const jsl = require("svjsl");
 const col = require("./consoleColors");
 const seededRNG = require("./seededRNG");
+const fs = require("fs");
+const downloadDefaultRP = require("./downloadDefaultRP");
 
 console.log(`\n\n\n\n\n`);
-if(!debuggerActive) var pb = new jsl.ProgressBar(8, `Parsing all resource files...`);
+
+var initTimestamp = 0;
+var pb;
+var userSettings = {
+    gameVersion: "1.14",
+    rpPath: "./.MRR/1.14/unzipped"
+};
 
 const init = () => {
-    let parseFilesHR = process.hrtime();
-    let allFiles = listAllFiles("C:/Users/Sven/Desktop/testRP");
-    let parseFilesHR_M = (process.hrtime(parseFilesHR)[1] / 1e6).toFixed(2);
+    initTimestamp = Math.round(new Date().getTime());
 
+    askSettings().then(() => {
+        downloadDefaultRP(userSettings.gameVersion, pbMsg => {
+            console.log(pbMsg);
+        }, (currentFileSize, totalFileSize) => {
+            process.stdout.cursorTo(0);
+            process.stdout.clearLine();
+            process.stdout.write(`Downloading: ${col.yellow}${currentFileSize}MB${col.rst} / ${col.yellow}${totalFileSize}MB${col.rst}`);
 
-    if(!debuggerActive) pb.next(`Done parsing ${col.yellow}${allFiles.files.length}${col.rst} resource files in ${col.yellow}${allFiles.folders.length}${col.rst} folders after ${col.yellow}${parseFilesHR_M}ms${col.rst}`);
+            if(currentFileSize == totalFileSize)
+            {
+                process.stdout.cursorTo(0);
+                process.stdout.clearLine();
+                process.stdout.write(`Downloading: ${col.green}Done${col.rst}\n`);
+            }
+        }).then(() => {
+            console.log(`Parsing all resource files...`);
+
+            initResources().then(allFiles => {
+                let doneTimestamp = Math.round(new Date().getTime());
+                console.log(`\n\n${col.green}Done (after ${((doneTimestamp - initTimestamp) / 1000).toFixed(1)} seconds).${col.rst}`);
+            }).catch(err => {
+                initError(`Error while parsing resource files`, err);
+            });
+        }).catch(err => {
+            initError(`Error while downloading/unzipping resource pack template`, err);
+        });
+    }).catch(err => {
+        initError(`Error while asking for settings`, err);
+    });
+}
+
+const initError = (title, detailed) => {
+    console.log(`\n\n\n${col.red}${title}:${col.rst}\n${col.yellow}${detailed}${col.rst}\n`);
+    console.log("(Window will automatically close after 20 seconds)");
+    setTimeout(() => process.exit(1), 20000);
+}
+
+const initResources = () => {
+    return new Promise((resolve, reject) => {
+        try {
+            let allFiles = listAllFiles(userSettings.rpPath);
+            if(!debuggerActive) console.log(`Found ${col.yellow}${allFiles.files.length}${col.rst} resource files in ${col.yellow}${allFiles.folders.length}${col.rst} folders`);
+
+            resolve(allFiles);
+        }
+        catch(err)
+        {
+            reject(`Couldn't parse resource files due to error: ${err}`);
+        }
+    });
+}
+
+const askSettings = () => {
+    return new Promise((resolve, reject) => {
+        resolve();
+    });
 }
 
 init();

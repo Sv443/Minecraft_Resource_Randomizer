@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/Sv443/Minecraft_Resource_Randomizer#readme",
   "dependencies": {
+    "adm-zip": "^0.4.13",
     "svjsl": "^1.7.0"
   }
 }

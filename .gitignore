@@ -62,5 +62,6 @@ typings/
 
 
 # MRR-specific
-testRP/
 build/MinecraftResourceRandomizer.exe
+.MRR/
+debug/
