@@ -6,8 +6,8 @@ const col = require("./consoleColors");
 
 /**
  * @typedef {Array<Object>} MRR_FileInfo
- * @param {String} fileName
- * @param {String} path
+ * @param {Array<String>} textures
+ * @param {Array<String>} sounds
  */
 
 /**
@@ -25,7 +25,10 @@ const col = require("./consoleColors");
 const listAllFiles = (dir = "../") => {
     let doneObj = {
         rpBasePath: "",
-        files: [],
+        files: {
+            textures: [],
+            sounds: []
+        },
         folders: []
     };
 
@@ -86,10 +89,13 @@ const listAllFiles = (dir = "../") => {
                     m++;
 
                     if(typeof fileName == "object" && !jsl.isEmpty(filename.length)) fileName = fileName.join(".");
-                    doneObj.files.push({
+                    if(itemType == "image") doneObj.files.textures.push({
                         "fileName": fileName,
-                        "path": itemPath,
-                        "type": itemType
+                        "path": itemPath
+                    });
+                    else if(itemType == "sound") doneObj.files.sounds.push({
+                        "fileName": fileName,
+                        "path": itemPath
                     });
                 }
             }
@@ -112,8 +118,12 @@ const listAllFiles = (dir = "../") => {
 
     if(jsl.isEmpty(doneObj.rpBasePath)) throw new Error("Not a valid Minecraft resource pack");
 
-    doneObj.files.forEach((file, i) => {
-        doneObj.files[i].path = file.path.substring(doneObj.rpBasePath.length + 1);
+    doneObj.files.textures.forEach((file, i) => {
+        doneObj.files.textures[i].path = file.path.substring(doneObj.rpBasePath.length + 1);
+    });
+
+    doneObj.files.sounds.forEach((file, i) => {
+        doneObj.files.sounds[i].path = file.path.substring(doneObj.rpBasePath.length + 1);
     });
 
     doneObj.folders.forEach((folder, i) => {

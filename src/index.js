@@ -60,7 +60,7 @@ const initResources = () => {
     return new Promise((resolve, reject) => {
         try {
             let allFiles = listAllFiles(userSettings.rpPath);
-            if(!debuggerActive) console.log(`Found ${col.yellow}${allFiles.files.length}${col.rst} resource files in ${col.yellow}${allFiles.folders.length}${col.rst} folders`);
+            if(!debuggerActive) console.log(`Found ${col.yellow}${allFiles.files.textures.length}${col.rst} texture files and ${col.yellow}${allFiles.files.sounds.length}${col.rst} sound files in ${col.yellow}${allFiles.folders.length}${col.rst} folders`);
 
             resolve(allFiles);
         }

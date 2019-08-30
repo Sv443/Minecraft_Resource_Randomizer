@@ -100,7 +100,7 @@ const downloadFile = (url, options, fileSizeUpd) => { // thanks to Vince Yuan fo
         });
 
         req.on("error", err => {
-            fs.unlink(dest, () => reject(`Couldn't download file: ${err}`));
+            fs.unlink(dest, () => reject(`Couldn't download file due to error: ${err}`));
         });
     });
 }
