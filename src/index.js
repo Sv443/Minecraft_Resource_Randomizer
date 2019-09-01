@@ -25,7 +25,7 @@ const init = () => {
         }, (currentFileSize, totalFileSize) => {
             process.stdout.cursorTo(0);
             process.stdout.clearLine();
-            process.stdout.write(`Downloading: ${col.yellow}${currentFileSize}MB${col.rst} / ${col.yellow}${totalFileSize}MB${col.rst}`);
+            process.stdout.write(`> Downloading: ${col.yellow}${currentFileSize}MB${col.rst} / ${col.yellow}${totalFileSize}MB${col.rst}`);
 
             if(currentFileSize == totalFileSize)
             {
@@ -60,7 +60,7 @@ const initResources = () => {
     return new Promise((resolve, reject) => {
         try {
             let allFiles = listAllFiles(userSettings.rpPath);
-            if(!debuggerActive) console.log(`Found ${col.yellow}${allFiles.files.textures.length}${col.rst} texture files and ${col.yellow}${allFiles.files.sounds.length}${col.rst} sound files in ${col.yellow}${allFiles.folders.length}${col.rst} folders`);
+            console.log(`Found ${col.yellow}${allFiles.files.textures.length}${col.rst} texture files and ${col.yellow}${allFiles.files.sounds.length}${col.rst} sound files in ${col.yellow}${allFiles.folders.length}${col.rst} folders`);
 
             resolve(allFiles);
         }

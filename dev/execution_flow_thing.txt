@@ -1,0 +1,16 @@
+<[ Initialization ]>
+    [ ] - Prompt user for settings
+    [■] - Download default resource pack
+    [■] - Unzip default resource pack
+    [■] - Scan through files and index them
+
+<[ Randomization ]>
+    [ ] - If no seed, generate a seed
+    [ ] - Generate random numbers with seed
+    [ ] - Create random indexes based on settings and indexes from [Initialization]
+
+<[ Finalizing ]>
+    [ ] - Assign new random indexes to downloaded default resource pack
+    [ ] - Change icon of resource pack
+    [ ] - Create .zip file to be "imported" in Minecraft
+    [ ] - Display some statistics (like spent time, settings and seed)

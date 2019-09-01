@@ -61,6 +61,11 @@ typings/
 .next
 
 
+
+
+# include change.log
+!change.log
+
 # MRR-specific
 build/MinecraftResourceRandomizer.exe
 .MRR/
