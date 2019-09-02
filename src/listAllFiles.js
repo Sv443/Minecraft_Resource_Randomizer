@@ -35,7 +35,8 @@ const listAllFiles = (dir = "../") => {
     let m = 0;
 
     let walk = (path) => {
-        if(settings.listAllFiles.verboseLogging) console.log(`\nWalking "${path}"`);
+        if(settings.listAllFiles.verboseLogging)
+            console.log(`\n Walking "${path}"`);
 
         let all = fs.readdirSync(path, {
             encoding: "utf8"
@@ -85,23 +86,29 @@ const listAllFiles = (dir = "../") => {
 
                 if(correctFileType)
                 {
-                    if(settings.listAllFiles.verboseLogging) process.stdout.write(`${col.yellow}*${col.rst}${m % 5 == 0 ? " " : ""}`);
+                    if(settings.listAllFiles.verboseLogging)
+                        process.stdout.write(`${col.yellow}*${col.rst}${m % 5 == 0 ? " " : ""}`);
                     m++;
 
-                    if(typeof fileName == "object" && !jsl.isEmpty(filename.length)) fileName = fileName.join(".");
-                    if(itemType == "image") doneObj.files.textures.push({
+                    if(typeof fileName == "object" && !jsl.isEmpty(filename.length))
+                        fileName = fileName.join(".");
+                    if(itemType == "image")
+                        doneObj.files.textures.push({
                         "fileName": fileName,
                         "path": itemPath
                     });
-                    else if(itemType == "sound") doneObj.files.sounds.push({
+                    else if(itemType == "sound")
+                        doneObj.files.sounds.push({
                         "fileName": fileName,
                         "path": itemPath
                     });
                 }
             }
         });
-        if(settings.listAllFiles.verboseLogging && m > 0) process.stdout.write(`${col.red} | ${col.yellow} ${m} total${col.rst}\n`);
-        else if(settings.listAllFiles.verboseLogging && m == 0) process.stdout.write(`${col.red} | ${col.yellow} (empty)${col.rst}\n`);
+        if(settings.listAllFiles.verboseLogging && m > 0)
+            process.stdout.write(`${col.red} | ${col.yellow} ${m} total${col.rst}\n`);
+        else if(settings.listAllFiles.verboseLogging && m == 0)
+            process.stdout.write(`${col.red} | ${col.yellow} (empty)${col.rst}\n`);
     }
 
     walk(dir);
@@ -112,11 +119,13 @@ const listAllFiles = (dir = "../") => {
         if(doneObj.folders.includes(folder)) deleteIdxs.push(idxOf);
     });
 
-    if(deleteIdxs.length > 0) deleteIdxs.forEach(idx => {
-        doneObj.folders.splice(idx, 1);
-    });
+    if(deleteIdxs.length > 0)
+        deleteIdxs.forEach(idx => {
+            doneObj.folders.splice(idx, 1);
+        });
 
-    if(jsl.isEmpty(doneObj.rpBasePath)) throw new Error("Not a valid Minecraft resource pack");
+    if(jsl.isEmpty(doneObj.rpBasePath))
+        throw new Error("Not a valid Minecraft resource pack");
 
     doneObj.files.textures.forEach((file, i) => {
         doneObj.files.textures[i].path = file.path.substring(doneObj.rpBasePath.length + 1);
@@ -130,7 +139,8 @@ const listAllFiles = (dir = "../") => {
         doneObj.folders[i] = folder.substring(doneObj.rpBasePath.length + 1);
     });
 
-    if(settings.listAllFiles.verboseLogging) console.log(`\n\n${col.green}[---- DONE WALKING ----]${col.rst}\n`);
+    if(settings.listAllFiles.verboseLogging)
+        console.log(`\n\n ${col.green}[---- DONE WALKING ----]${col.rst}\n`);
     return doneObj;
 }
 

@@ -11,22 +11,27 @@ const generateRandomSeed = () => {
 
     for(let i = 0; i < settings.seed.digitCount; i++)
     {
-        seed += Math.floor(jsl.randRange(0, 9)).toString();
+        seed += Math.floor(jsl.randRange(settings.seed.digitRange[0], settings.seed.digitRange[1]) + 1).toString();
     }
-    if(seed.startsWith("0")) return generateRandomSeed(); // make sure the first item is not 0, so we can parse it as an int without losing the first digit
+    if(seed.startsWith("0"))
+    {
+        seed = seed.substring(1); // make sure the first item is not 0, so we can parse it as an int without losing the first digit
+        seed = (Math.floor(Math.random() * 3) + 1).toString() + seed;
+    }
     return parseInt(seed);
 }
 
 /**
  * 
- * @param {*} count 
- * @param {*} seed 
+ * @param {Number} count 
+ * @param {Number} seed 
  */
 const generateSeededNumbers = (count, seed) => { // thanks to olsn for this code snippet: http://indiegamr.com/generate-repeatable-random-numbers-in-js/
     let result = [];
     let initialSeed = seed;
 
-    if(jsl.isEmpty(seed) || seed.toString().length != settings.seed.digitCount) seed = generateRandomSeed();
+    if(jsl.isEmpty(seed) || seed.toString().length != settings.seed.digitCount)
+        seed = generateRandomSeed();
 
     let seededRandom = (min, max) => {
         max = max || 1;
@@ -39,11 +44,10 @@ const generateSeededNumbers = (count, seed) => { // thanks to olsn for this code
     }
 
     for(let i = 0; i < count; i++)
-    {
-        result.push(seededRandom(0, 9));
-    }
+        result.push(seededRandom(settings.seed.digitRange[0], settings.seed.digitRange[1]));
 
-    if(result[0] == 0) result[0] = 1; // make sure the first item is not 0, so we can parse it as an int without losing the first digit
+    if(result[0] == 0)
+        result[0] = 1; // make sure the first item is not 0, so we can parse it as an int without losing the first digit
 
     return {
         numbers: result,
@@ -52,4 +56,16 @@ const generateSeededNumbers = (count, seed) => { // thanks to olsn for this code
     }
 }
 
-module.exports = { generateSeededNumbers, generateRandomSeed };
+const validateSeed = seed => {
+    seed = seed.toString();
+
+    if(!seed.match(new RegExp(`^[${settings.seed.digitRange[0]}-${settings.seed.digitRange[1]}]{${settings.seed.digitCount}}$`, "gm")) || seed.includes("\n"))
+        return false;
+
+    if(seed.length == settings.seed.digitCount)
+        return true;
+
+    return false;
+}
+
+module.exports = { generateSeededNumbers, generateRandomSeed, validateSeed };

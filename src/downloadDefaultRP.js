@@ -10,10 +10,12 @@ const downloadAndUnzip = (version, updateCallback, fileSizeUpd) => {
     return new Promise((resolve, reject) => {
         let versionExists = false;
         Object.keys(settings.defaultPacks).forEach(key => {
-            if(key == version) versionExists = true;
+            if(key == version)
+                versionExists = true;
         });
 
-        if(!versionExists) return reject(`Version "${version}" not found`);
+        if(!versionExists)
+            return reject(`Version "${version}" not found`);
 
         download(version, version, updateCallback, fileSizeUpd).then((pathToZip) => {
             updateCallback(`Unzipping file...`);
@@ -108,7 +110,8 @@ const downloadFile = (url, options, fileSizeUpd) => { // thanks to Vince Yuan fo
 const unzip = (zipPath, destPath) => {
     return new Promise((resolve, reject) => {
         fs.exists(zipPath, exists => {
-            if(!exists) return reject(`ZIP file not found in path: "${zipPath}"`);
+            if(!exists)
+                return reject(`ZIP file not found in path: "${zipPath}"`);
 
             let zip = new AdmZip(zipPath);
 
