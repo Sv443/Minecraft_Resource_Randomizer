@@ -88,7 +88,7 @@ const askErr = err => {
 const askSettings = () => {
     return new Promise((resolve, reject) => {
         let askAction = ` ${col.blue}${settings.info.name} by ${settings.info.author}${col.rst}
- Please choose what you want to do (enter the green digit and press Enter):
+ Please choose what you want to do (enter the green digit and press the <Return> key):
 
  ${col.green}1${col.rst} - Create a random resource pack
  ${col.green}2${col.rst} - View the wiki website for help
@@ -96,6 +96,7 @@ const askSettings = () => {
  ${col.green}4${col.rst} - Exit ${settings.info.abbr}
 
  ${col.cyan}${settings.promptArrow} ${col.rst}`;
+        rl.resume();
         rl.question(askAction, answer => {
             rl.pause();
             answer = parseInt(answer);
@@ -142,10 +143,11 @@ const ask = {
         return new Promise((resolve, reject) => {
             let askAction = ` ${col.yellow}Step 1 / 1337${col.rst}
  Do you have a seed to generate the resource pack from?
- If not or you wanna generate a random resource pack, just press Enter.
+ If not or you wanna generate a random resource pack, just press the <Return> key.
  To go to the main menu, enter ${col.yellow}cancel${col.rst}.
 
  ${col.cyan}Seed ${settings.promptArrow} ${col.rst}`;
+            rl.resume();
             rl.question(askAction, answer => {
                 rl.pause();
 

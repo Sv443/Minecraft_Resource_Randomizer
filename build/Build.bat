@@ -1,7 +1,7 @@
 @echo off
 cd ..
 
-set PROJ_DIR=%~dp0
+set PROJ_DIR=%~dp0"..\"
 
 
 :start
@@ -23,21 +23,31 @@ call npm i --save
 
 echo.
 echo Done downloading or updating dependencies.
-echo.
 echo Building the executable file^(s^)...
 echo.
 
+REM make subdir for Windows build
+if not exist %PROJ_DIR%build\Windows mkdir %PROJ_DIR%\build\Windows
+
 REM actually building the executable file
-call pkg src/index.js -o build/MinecraftResourceRandomizer.exe
+call pkg src/index.js -o build/Windows/MinecraftResourceRandomizer.exe
+
+echo.
+echo Done building the executable file^(s^)
+echo Copying dependencies...
+echo.
+
+REM copy necessary dependencies
+Xcopy "%PROJ_DIR%node_modules\opn\xdg-open" "%PROJ_DIR%build\Windows" /Y 1>NUL
 
 echo.
 echo.
 echo.
 echo.
 echo.
-
 IF %ERRORLEVEL% EQU 0 (
-    echo Successfully built the executable file^(s^). It ^/ they should be located in the ^"build^" folder.
+    TITLE MRR - Building finished
+    echo Successfully built the executable file^(s^). It ^/ they should be located in the ^"build/Windows^" folder.
     echo.
 
     color 0a
@@ -46,6 +56,7 @@ IF %ERRORLEVEL% EQU 0 (
 
     EXIT
 ) ELSE (
+    TITLE MRR - Building error
     echo ERROR
     echo.
     echo Error while building the executable file^(s^). Please make sure Node.js and npm are installed and maybe try running this build script as administrator.

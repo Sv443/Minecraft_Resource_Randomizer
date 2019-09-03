@@ -1,0 +1,26 @@
+
+
+>> Settings
+    1 - Custom settings
+    2 - Last used settings
+    3 - Use recommended settings
+
+>> Game Version
+    1 - 1.8.X
+    2 - 1.9.X
+    3 - 1.10.X
+    4 - 1.11.X
+    5 - 1.12.X
+    6 - 1.13.X
+    7 - 1.14.X
+
+>> Randomization level
+    1 - Only randomize resource files that are in the same folder (will look best)
+    2 - Randomize resource files across folders, but only with the same file extension (will be very random and also look pretty good)
+    3 - Randomize everything, regardless of file extension (is the most random but also glitched)
+
+>> Randomization rate
+    1 - Slightly randomized (least random but will be the fastest)
+    2 - Medium
+    3 - Thorough
+    4 - Very thorough (most random but also takes the longest)

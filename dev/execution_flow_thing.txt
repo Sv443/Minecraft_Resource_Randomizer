@@ -1,5 +1,5 @@
 <[ Initialization ]>
-    [ ] - Prompt user for settings
+    [*] - Prompt user for settings
     [■] - Download default resource pack
     [■] - Unzip default resource pack
     [■] - Scan through files and index them
@@ -13,4 +13,16 @@
     [ ] - Assign new random indexes to downloaded default resource pack
     [ ] - Change icon of resource pack
     [ ] - Create .zip file to be "imported" in Minecraft
-    [ ] - Display some statistics (like spent time, settings and seed)
+    [ ] - Display some statistics (like spent time, settings, seed and checksum)
+
+
+
+
+
+
+
+
+<[ Legend ]>
+    [ ] - Not started yet
+    [*] - Work in Progress
+    [■] - Done
