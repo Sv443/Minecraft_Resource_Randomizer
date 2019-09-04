@@ -3,7 +3,7 @@ const jsl = require("svjsl");
 
 
 /**
- * Creates a random seed and returns it
+ * Creates a random seed according to `settings.js`
  * @returns {Number}
  */
 const generateRandomSeed = () => {
@@ -16,22 +16,29 @@ const generateRandomSeed = () => {
     if(seed.startsWith("0"))
     {
         seed = seed.substring(1); // make sure the first item is not 0, so we can parse it as an int without losing the first digit
-        seed = (Math.floor(Math.random() * 3) + 1).toString() + seed;
+        seed = (Math.floor(Math.random() * (settings.seed.digitRange[1] - 1)) + 1).toString() + seed;
     }
     return parseInt(seed);
 }
 
 /**
- * 
- * @param {Number} count 
+ * @typedef {Object} SeededRandomNumbers
+ * @prop {Array<Number>} numbers An array of the random numbers
+ * @prop {Number} seed
+ * @param {String} joined The random numbers, but as a string
+ */
+
+/**
+ * Generates random numbers based on a seed
+ * @param {Number} count How many random numbers should be generated
  * @param {Number} seed 
+ * @returns {SeededRandomNumbers}
  */
 const generateSeededNumbers = (count, seed) => { // thanks to olsn for this code snippet: http://indiegamr.com/generate-repeatable-random-numbers-in-js/
     let result = [];
     let initialSeed = seed;
 
-    if(jsl.isEmpty(seed) || seed.toString().length != settings.seed.digitCount)
-        seed = generateRandomSeed();
+    seed = validateSeed(seed) ? parseInt(seed) : generateRandomSeed();
 
     let seededRandom = (min, max) => {
         max = max || 1;
@@ -52,14 +59,21 @@ const generateSeededNumbers = (count, seed) => { // thanks to olsn for this code
     return {
         numbers: result,
         seed: initialSeed,
-        joinedNumbers: result.join("")
+        joined: result.join("")
     }
 }
 
+/**
+ * Validates a seed based on `settings.js`
+ * @param {(Number|String)} seed 
+ * @return {Boolean}
+ */
 const validateSeed = seed => {
     seed = seed.toString();
 
-    if(!seed.match(new RegExp(`^[${settings.seed.digitRange[0]}-${settings.seed.digitRange[1]}]{${settings.seed.digitCount}}$`, "gm")) || seed.includes("\n"))
+    let regex = new RegExp(`^[${settings.seed.digitRange[0]}-${settings.seed.digitRange[1]}]{${settings.seed.digitCount}}$`, "gm");
+
+    if(!seed.match(regex) || seed.includes("\n"))
         return false;
 
     if(seed.length == settings.seed.digitCount)
