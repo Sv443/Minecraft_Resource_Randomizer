@@ -181,11 +181,9 @@ const ask = {
     aboutMRR: () => {
         return new Promise((resolve, reject) => {
             let askAction = ` ${col.blue}About ${settings.info.name}:${col.rst}
- Do you have a seed to generate the resource pack from?
- If not or you wanna generate a random resource pack, just press the <Return> key.
- To go to the main menu, enter ${col.yellow}cancel${col.rst}.
+ 
 
- ${col.cyan}Seed ${settings.promptArrow} ${col.rst}`;
+ ${col.cyan}${settings.promptArrow} ${col.rst}`;
             rl.resume();
             rl.question(askAction, answer => {
                 rl.pause();
