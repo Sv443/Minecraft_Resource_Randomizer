@@ -4,7 +4,7 @@
   "description": "Creates a Minecraft resource pack with randomized textures and sounds",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "eslint ./"
   },
   "repository": {
     "type": "git",
@@ -25,5 +25,8 @@
     "adm-zip": "^0.4.13",
     "opn": "^6.0.0",
     "svjsl": "^1.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.3.0"
   }
 }

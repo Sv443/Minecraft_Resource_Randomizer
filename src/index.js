@@ -1,10 +1,10 @@
-const debuggerActive = typeof v8debug === "object" || /--debug|--inspect/.test(process.execArgv.join(" "));
+// const debuggerActive = typeof v8debug === "object" || /--debug|--inspect/.test(process.execArgv.join(" "));
 const settings = require("../settings");
 const listAllFiles = require("./listAllFiles");
 const jsl = require("svjsl");
 const col = require("./consoleColors");
 const seededRNG = require("./seededRNG");
-const fs = require("fs");
+// const fs = require("fs");
 const downloadDefaultRP = require("./downloadDefaultRP");
 const readline = require("readline");
 const opn = require("opn");
@@ -46,6 +46,7 @@ const init = () => {
             console.log(` Parsing all resource files...`);
 
             initResources().then(allFiles => {
+                allFiles.toString(); // ESLint ignore
                 let doneTimestamp = Math.round(new Date().getTime());
                 console.log(`\n\n ${col.green}Done (after ${((doneTimestamp - initTimestamp) / 1000).toFixed(1)} seconds).${col.rst}`);
             }).catch(err => {
@@ -107,7 +108,7 @@ const askSettings = () => {
                     logSpacer();
                     ask.seed().then(() => {
 
-                    }).catch(err => askErr);
+                    }).catch(err => askErr(err));
                 break;
                 case 2:
                     opn(settings.info.docsURL);
@@ -188,7 +189,9 @@ const ask = {
             rl.question(askAction, answer => {
                 rl.pause();
 
-                
+                resolve.toString(); // ESLint ignore
+                reject.toString(); // ESLint ignore
+                answer.toString(); // ESLint ignore
             });
         });
     },
